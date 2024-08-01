@@ -91,9 +91,21 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	if(root == NULL)
+		{
+			return;
+		}
+		Stack stk;
+		stk.top = NULL;
+		push(&stk, root);
+		while (!isEmpty(&stk))
+		{
+			BSTNode *currnode = pop(&stk);
+			postOrderIterativeS1(currnode->left);
+			postOrderIterativeS1(currnode->right);
+			printf("%d ", currnode->item);
+		}
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 
 void insertBSTNode(BSTNode **node, int value){

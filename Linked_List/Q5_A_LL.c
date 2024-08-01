@@ -57,6 +57,7 @@ int main()
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Split the linked list into two linked lists, frontList and backList:\n");
 	printf("0: Quit:\n");
+	c = 1;
 
 	while (c != 0)
 	{
@@ -80,7 +81,6 @@ int main()
 			printf("Back linked list: ");
 			printList(&resultBackList);
 			printf("\n");
-			removeAllItems(&ll);
 			removeAllItems(&resultFrontList);
 			removeAllItems(&resultBackList);
 			break;
@@ -102,7 +102,32 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode *cur1 = ll->head;
+	ListNode *cur2;
+	int s;
+
+	if( ll->size %2 == 1)
+	{
+		s = ll->size/2 + 1; 
+	}
+	else
+	{
+		s = ll->size/2;
+	}
+
+	for(int i=1; i < s; i++)
+	{
+		cur1 = cur1->next;
+	}
+
+	cur2 = cur1->next;
+	cur1->next = NULL;
+
+	resultFrontList->head = ll->head;
+	resultFrontList->size = s;
+	resultBackList->head = cur2;
+	resultBackList->size = ll->size - s;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

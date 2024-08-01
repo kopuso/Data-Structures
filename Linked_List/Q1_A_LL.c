@@ -90,7 +90,47 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	ListNode *ptr;
+	ListNode *newNode;
+	newNode = (struct _listnode *)malloc(sizeof(struct _listnode));
+	newNode->item = item;
+	newNode->next = NULL;
+	int index = 0;
+
+	if (ll->head == NULL)
+	{
+		ll->head = newNode;
+		return index;
+	}
+	else
+	{
+		if(ll->head->item > newNode->item)
+		{
+			newNode->next = ll->head;
+			ll->head = newNode;
+			return index;
+		}
+		else if(ll->head->item == newNode->item)
+		{
+			return -1;
+		}
+		for (ptr = ll->head; ptr->next; ptr = ptr->next)  // ptr->next 가 NULL이 아닐때까지 반복
+		{
+			if(ptr->next->item == newNode->item)
+			{
+				return -1;
+			}
+			else if(ptr->item < newNode->item && ptr->next->item > newNode->item)
+			{
+				newNode->next = ptr->next;
+				ptr->next = newNode;
+				return index + 1;
+			}
+			index += 1;
+		}
+		ptr->next = newNode;
+		return index + 1;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
